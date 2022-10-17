@@ -3,25 +3,30 @@ package com.example.homeworks
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.homeworks.Fragments.FirstFragment
+import androidx.fragment.app.FragmentManager
+import com.example.homeworks.Fragments.MainFragment
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     val fragmentsContainerId: Int = R.id.main_fragments_container
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         initFragments()
     }
 
     private fun initFragments() {
+        val fragment = supportFragmentManager.findFragmentByTag(MainFragment.MAIN_FRAGMENT_TAG)
+        if (fragment != null) return
         supportFragmentManager.beginTransaction().add(
             fragmentsContainerId,
-            FirstFragment.getInstance(),
-            FirstFragment.FIRST_FRAGMENT_TAG
+            MainFragment.getInstance(),
+            MainFragment.MAIN_FRAGMENT_TAG
         ).commit()
+
     }
 
-    fun replaceFragment(fragment: Fragment, tag: String, detachCurrent: Boolean = false) {
+    fun addFragment(fragment: Fragment, tag: String, detachCurrent: Boolean = false) {
         val transaction = supportFragmentManager.beginTransaction()
 
         if (detachCurrent) {
@@ -31,7 +36,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         transaction
-            .replace(fragmentsContainerId, fragment, tag)
+            .add(fragmentsContainerId, fragment, tag)
             .addToBackStack(null)
             .commit()
     }
