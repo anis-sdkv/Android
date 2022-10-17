@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Homeworks</string>
+
+    <string name="logo">Plant Library</string>
+    <string name="species">"A species of "</string>
+    <string name="other_names">"Also known as "</string>
+    <string name="botanical_name">"Botanical name: "</string>
+    <string name="description">Description</string>
 </resources>
