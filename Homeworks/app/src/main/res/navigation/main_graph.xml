@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/a1Fragment">
+
+    <fragment
+        android:id="@+id/a1Fragment"
+        android:name="com.example.homeworks.fragments.A1Fragment"
+        android:label="A1Fragment" >
+        <action
+            app:popUpTo="@id/a1Fragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_a1Fragment_to_a2Fragment"
+            app:destination="@id/a2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/b1Fragment"
+        android:name="com.example.homeworks.fragments.B1Fragment"
+        android:label="B1Fragment" >
+        <action
+            android:id="@+id/action_b1Fragment_to_b2Fragment"
+            app:destination="@id/b2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/a2Fragment"
+        android:name="com.example.homeworks.fragments.A2Fragment"
+        android:label="A2Fragment" >
+        <action
+            android:id="@+id/action_a2Fragment_to_a3Fragment"
+            app:destination="@id/a3Fragment"
+            app:popUpTo="@id/a2Fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/b2Fragment"
+        android:name="com.example.homeworks.fragments.B2Fragment"
+        android:label="B2Fragment" />
+    <fragment
+        android:id="@+id/a3Fragment"
+        android:name="com.example.homeworks.fragments.A3Fragment"
+        android:label="A3Fragment" />
+    <fragment
+        android:id="@+id/c1Fragment"
+        android:name="com.example.homeworks.fragments.C1Fragment"
+        android:label="C1Fragment" >
+        <action
+            android:id="@+id/action_c1Fragment_to_c2Fragment"
+            app:destination="@id/c2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/c3Fragment"
+        android:name="com.example.homeworks.fragments.C3Fragment"
+        android:label="C3Fragment" >
+    </fragment>
+    <fragment
+        android:id="@+id/c2Fragment"
+        android:name="com.example.homeworks.fragments.C2Fragment"
+        android:label="C2Fragment" >
+        <action
+            android:id="@+id/action_c2Fragment_to_c3Fragment"
+            app:destination="@id/c3Fragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomDialogFragment"
+        android:name="com.example.homeworks.fragments.BottomDialogFragment"
+        android:label="BottomDialogFragment" >
+        <action
+            android:id="@+id/action_bottomDialogFragment_to_b2Fragment"
+            app:destination="@id/b2Fragment" />
+        <action
+            android:id="@+id/action_bottomDialogFragment_to_a3Fragment"
+            app:destination="@id/a3Fragment" />
+        <action
+            android:id="@+id/action_bottomDialogFragment_to_c2Fragment"
+            app:destination="@id/c2Fragment" />
+    </dialog>
+</navigation>

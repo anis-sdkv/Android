@@ -1,38 +1,43 @@
 package com.example.homeworks
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.homeworks.Fragments.FirstFragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.example.homeworks.databinding.ActivityMainBinding
+import com.example.homeworks.fragments.BottomDialogFragment
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity() {
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
-    val fragmentsContainerId: Int = R.id.main_fragments_container
+    private lateinit var controller: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initFragments()
-    }
 
-    private fun initFragments() {
-        supportFragmentManager.beginTransaction().add(
-            fragmentsContainerId,
-            FirstFragment.getInstance(),
-            FirstFragment.FIRST_FRAGMENT_TAG
-        ).commit()
-    }
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    fun replaceFragment(fragment: Fragment, tag: String, detachCurrent: Boolean = false) {
-        val transaction = supportFragmentManager.beginTransaction()
+        controller =
+            (supportFragmentManager.findFragmentById(R.id.container)
+                    as NavHostFragment).navController
 
-        if (detachCurrent) {
-            supportFragmentManager.findFragmentById(fragmentsContainerId)?.let { currentFragment ->
-                transaction.detach(currentFragment)
-            }
+        with(binding) {
+            bnvMain.setupWithNavController(controller)
         }
+    }
 
-        transaction
-            .replace(fragmentsContainerId, fragment, tag)
-            .addToBackStack(null)
-            .commit()
+    fun changeBottomNavVisibility(visibility: Int) {
+        binding.bnvMain.visibility = visibility
+    }
+
+    fun setActionBarTitle(title: String?) {
+        supportActionBar?.title = title
     }
 }
