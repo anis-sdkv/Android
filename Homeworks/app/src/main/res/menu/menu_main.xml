@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/a1Fragment"
+        android:icon="@drawable/ic_baseline_brightness_1_24"
+        android:title="@string/a" />
+    <item
+        android:id="@+id/b1Fragment"
+        android:icon="@drawable/ic_baseline_brightness_2_24"
+        android:title="@string/b" />
+    <item
+        android:id="@+id/c1Fragment"
+        android:icon="@drawable/ic_baseline_brightness_3_24"
+        android:title="@string/c" />
+</menu>
