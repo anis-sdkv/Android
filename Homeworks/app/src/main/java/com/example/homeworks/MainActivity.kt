@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.homeworks.databinding.ActivityMainBinding
+import com.example.homeworks.fragments.BottomDialogFragment
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -30,10 +31,6 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             bnvMain.setupWithNavController(controller)
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
     fun changeBottomNavVisibility(visibility: Int) {

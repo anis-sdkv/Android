@@ -7,4 +7,6 @@
     <string name="c">C</string>
     <string name="end">End</string>
     <string name="enter_text">Enter text</string>
+    <string name="dialog">dialog</string>
+    <string name="dialog_menu">Dialog menu</string>
 </resources>
