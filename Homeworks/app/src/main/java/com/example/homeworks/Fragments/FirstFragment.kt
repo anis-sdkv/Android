@@ -7,6 +7,8 @@ import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -33,8 +35,10 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFirstBinding.bind(view)
         setListeners()
+        setWatchers()
         _alarmManager = requireContext().getSystemService(ALARM_SERVICE) as AlarmManager
     }
+
 
     private fun setListeners() {
         with(binding) {
@@ -84,12 +88,6 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     private fun setAlarm() {
         with(binding) {
             with(requireContext()) {
-                if (etTime.text.isEmpty() || etTitle.text.isEmpty() || etShortMessage.text.isEmpty()) {
-                    Toast.makeText(this, "Fill in the required fields!", Toast.LENGTH_SHORT)
-                        .show()
-                    return
-                }
-
                 val intent = Intent(this, NotificationReceiver::class.java).apply {
                     this.putExtra("title", etTitle.text.toString())
                     this.putExtra("text", etShortMessage.text.toString())
@@ -129,6 +127,76 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         val df: DateFormat = SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'")
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"))
         return df.format(Date(milliseconds)).toString()
+    }
+
+    private fun setWatchers() {
+        with(binding) {
+            etTitle.addTextChangedListener(object : TextWatcher {
+                override fun onTextChanged(
+                    s: CharSequence, start: Int, before: Int,
+                    count: Int
+                ) {
+                    // TODO Auto-generated method stub
+                    if (!(s.toString() == "") && etShortMessage.text.length > 0 && etTime.text.length > 0) {
+                        btnShow.setEnabled(true)
+                    } else {
+                        btnShow.setEnabled(false)
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence, start: Int, count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                }
+            })
+            etShortMessage.addTextChangedListener(object : TextWatcher {
+                override fun onTextChanged(
+                    s: CharSequence, start: Int, before: Int,
+                    count: Int
+                ) {
+                    if (!(s.toString() == "") && etTitle.text.length > 0 && etTime.text.length > 0) {
+                        btnShow.setEnabled(true)
+                    } else {
+                        btnShow.setEnabled(false)
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence, start: Int, count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                }
+            })
+            etTime.addTextChangedListener(object : TextWatcher {
+                override fun onTextChanged(
+                    s: CharSequence, start: Int, before: Int,
+                    count: Int
+                ) {
+                    // TODO Auto-generated method stub
+                    if (!(s.toString() == "") && etShortMessage.text.length > 0 && etTitle.text.length > 0) {
+                        btnShow.setEnabled(true)
+                    } else {
+                        btnShow.setEnabled(false)
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence, start: Int, count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                }
+            })
+        }
     }
 
     override fun onDestroyView() {
