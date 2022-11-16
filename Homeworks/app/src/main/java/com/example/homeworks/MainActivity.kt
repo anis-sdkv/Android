@@ -1,21 +1,14 @@
 package com.example.homeworks
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.media.AudioAttributes
-import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
+import android.content.BroadcastReceiver
+import android.content.IntentFilter
 import android.os.Bundle
-import android.os.SystemClock
-import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.homeworks.Fragments.FirstFragment
 import com.example.homeworks.tools.NotificationsProvider
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity(R.layout.activity_main){
 
     private val fragmentsContainerId: Int = R.id.main_fragments_container
     var provider: NotificationsProvider? = null

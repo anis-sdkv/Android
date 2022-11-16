@@ -3,10 +3,14 @@ package com.example.homeworks.Fragments
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -31,12 +35,50 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     private var requestId = 0
 
+    private val airPlaneModeReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            onAirPlaneModeChanged()
+            Toast.makeText(context, "Aiplane mode changed!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFirstBinding.bind(view)
+        _alarmManager = requireContext().getSystemService(ALARM_SERVICE) as AlarmManager
         setListeners()
         setWatchers()
-        _alarmManager = requireContext().getSystemService(ALARM_SERVICE) as AlarmManager
+
+        requireActivity().registerReceiver(
+            airPlaneModeReceiver,
+            IntentFilter("android.intent.action.AIRPLANE_MODE")
+        )
+
+        onAirPlaneModeChanged()
+    }
+
+    private fun onAirPlaneModeChanged() {
+        with(binding) {
+            val value = !isAirplaneModeOn()
+            etTitle.isEnabled = value
+            etShortMessage.isEnabled = value
+            cbExpandedMessage.isEnabled = value
+            etTime.isEnabled = value
+            btnCancel.isEnabled = value
+            btnTime.isEnabled = value
+            if (cbExpandedMessage.isChecked)
+                etExpandedMessage.isEnabled = value
+            if (!etTitle.text.isEmpty() && !etShortMessage.text.isEmpty() && !etTime.text.isEmpty())
+                btnShow.isEnabled = value
+        }
+
+    }
+
+    private fun isAirplaneModeOn(): Boolean {
+        return Settings.System.getInt(
+            requireContext().contentResolver,
+            Settings.Global.AIRPLANE_MODE_ON, 0
+        ) != 0
     }
 
 
