@@ -10,7 +10,6 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
 
-    private var number: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,7 +22,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     }
 
     companion object {
-        const val FIRST_FRAGMENT_TAG = "FIRST_FRAGMENT_TAG"
+        const val FRAGMENT_TAG = "FIRST_FRAGMENT"
         fun getInstance() = FirstFragment()
     }
 }

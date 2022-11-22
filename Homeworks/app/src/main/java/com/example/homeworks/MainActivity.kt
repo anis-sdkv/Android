@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         supportFragmentManager.beginTransaction().add(
             fragmentsContainerId,
             FirstFragment.getInstance(),
-            FirstFragment.FIRST_FRAGMENT_TAG
+            FirstFragment.FRAGMENT_TAG
         ).commit()
     }
 
