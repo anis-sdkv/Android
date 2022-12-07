@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Homeworks</string>
+
+    <string name="default_notificaiton_id" translatable="false">defaultId</string>
+    <string name="default_notificaiton_channel">Default</string>
+
+    <string name="service_notificaiton_id" translatable="false">serviceId</string>
+    <string name="service_notificaiton_channel">Foreground service</string>
 </resources>
