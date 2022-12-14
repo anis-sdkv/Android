@@ -1,38 +1,33 @@
 package com.example.homeworks
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import com.example.homeworks.Fragments.FirstFragment
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.example.homeworks.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    val fragmentsContainerId: Int = R.id.main_fragments_container
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initFragments()
-    }
-
-    private fun initFragments() {
-        supportFragmentManager.beginTransaction().add(
-            fragmentsContainerId,
-            FirstFragment.getInstance(),
-            FirstFragment.FRAGMENT_TAG
-        ).commit()
-    }
-
-    fun replaceFragment(fragment: Fragment, tag: String, detachCurrent: Boolean = false) {
-        val transaction = supportFragmentManager.beginTransaction()
-
-        if (detachCurrent) {
-            supportFragmentManager.findFragmentById(fragmentsContainerId)?.let { currentFragment ->
-                transaction.detach(currentFragment)
-            }
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initViewPager()
+        binding.btn.setOnClickListener {
+            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show()
+            (binding.pager.adapter as PagerAdapter).preloadAll()
         }
+    }
 
-        transaction
-            .replace(fragmentsContainerId, fragment, tag)
-            .addToBackStack(null)
-            .commit()
+    private fun initViewPager() {
+        val pager = binding.pager
+        pager.adapter = PagerAdapter( Glide.with(this), lifecycleScope)
+        pager.orientation = ViewPager2.ORIENTATION_VERTICAL
     }
 }
