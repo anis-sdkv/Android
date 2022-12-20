@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Homeworks</string>
+    <string name="account">Личный кабинет</string>
+    <string name="settings">Настройки</string>
+    <string name="login">Логин:</string>
+    <string name="change">Изменить</string>
+    <string name="edit">редактировать</string>
+    <string name="password">Пароль</string>
+    <string name="login_btn">Войти</string>
+    <string name="reg_btn">Зарегистрироваться</string>
+    <string name="register">регистрация</string>
+    <string name="s1">Настройка 1</string>
+    <string name="s2">Настройка 2</string>
+    <string name="s3">Настройка 3</string>
+    <string name="save">сохранить</string>
+    <string name="exit">Выйти</string>
 </resources>
